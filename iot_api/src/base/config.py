@@ -1,11 +1,7 @@
 
 # Built-in import
-import re
 import os
 import sys
-import time
-import serial
-import serial.tools.list_ports
 
 # Third-party import
 import pymysql
