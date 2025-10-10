@@ -1,6 +1,20 @@
 version: "3.8"
 
 services:
+  mysql:
+    image: mysql:latest
+    container_name: mysql
+    ports:
+      - "3306:3306"
+    environment:
+      MYSQL_ROOT_PASSWORD: "admin"
+    volumes:
+      - "C:/Users/USER/Documents/Magang IoT Lab/mysql_docker:/var/lib/mysql"
+    restart: unless-stopped
+    networks:
+      sporthub_net:
+        ipv4_address: 172.28.0.10
+
   iot-api:
     build:
       dockerfile: iot_api.Dockerfile
@@ -11,14 +25,14 @@ services:
     environment:
       HOST: "0.0.0.0"
       PORT: "8000"
-      MYSQL_HOST: "127.0.0.1"
+      MYSQL_HOST: "172.28.0.10"
       MYSQL_USER: "root"
       MYSQL_PASSWORD: "admin"
       MYSQL_DB: "registration"
     restart: unless-stopped
     networks:
       sporthub_net:
-        ipv4_address: 172.28.0.10
+        ipv4_address: 172.28.0.11
 
 networks:
   sporthub_net:
