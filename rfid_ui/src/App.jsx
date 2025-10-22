@@ -1,6 +1,17 @@
 import React, { useRef, useState } from 'react';
 import '@ant-design/v5-patch-for-react-19';
-import { Button, Flex, Form, Input, Checkbox, DatePicker, Select } from 'antd';
+import { 
+  Button, 
+  Flex, 
+  Form, 
+  Input, 
+  Checkbox, 
+  DatePicker, 
+  Select, 
+  Row, 
+  Col,
+  Alert 
+} from 'antd';
 import { openSerialSimple } from './components/SerialSimple';
 
 
@@ -10,25 +21,19 @@ export default function App() {
   const disconnectRef = useRef(null);
 
   const onFinish = values => {
-    console.log('Success:', values);
+    const id = 
+    const uid = "ABC";
+    const player_name = values.playerName;
+    const dob = `${values.dob.$y}-${values.dob.$M+1}-${values.dob.$D}`;
+    const email = values.email;
+    const whatsapp = values.whatsapp;
+    const membership_type = value.membershipType
+
   };
   const onFinishFailed = errorInfo => {
-    console.log('Failed:', errorInfo);
+    console.error('Form submission failed:', errorInfo);
   };
 
-  const onMembershipTypeChange = value => {
-    switch (value) {
-      case 'daily':
-        console.log("daily");
-        break;
-      case 'employee':
-        console.log("employee");
-        break;
-    }
-  };
-
-
-  // Handle incoming data from the serial helper
   const handleData = (data, err) => {
     if (err) {
       console.error('Serial error', err);
@@ -45,7 +50,6 @@ export default function App() {
     }
  };
 
-  // Called from a user gesture (button click) - required by browsers
   const handleConnect = async () => {
     try {
       const session = await openSerialSimple(9600, handleData);
@@ -109,14 +113,15 @@ export default function App() {
           <Input />
         </Form.Item>
 
-        <Form.Item label="Connect to card" style={{ marginBottom: 12 }}>
+        {/* <Form.Item label="Connect to card" style={{ marginBottom: 12 }}>
           <button onClick={handleConnect} disabled={connected} style={{ marginRight: 8 }}>
             Connect
           </button>
           <button onClick={handleDisconnect} disabled={!connected}>
             Disconnect
           </button>
-        </Form.Item>
+          <p>Card detected: {logs[logs.length - 1]}</p>
+        </Form.Item> */}
 
         <Form.Item
           label="Whatsapp"
@@ -129,15 +134,12 @@ export default function App() {
         <Form.Item name="membershipType" label="Membership Type" rules={[{ required: true }]}>
           <Select
             placeholder="Membership Type..."
-            onChange={onMembershipTypeChange}
             allowClear
           >
             <Option value="daily">Daily</Option>
             <Option value="employee">Employee</Option>
           </Select>
         </Form.Item>
-
-        
 
 
         <Form.Item label={null}>
@@ -147,12 +149,6 @@ export default function App() {
         </Form.Item>
       </Form>
 
-      
-
-      {/* <div>
-        <h4>Serial output (latest at bottom)</h4>
-        {logs.join("\n")}
-      </div> */}
     </div>
   );
 }

@@ -1,4 +1,8 @@
+# Built-in
 from enum import Enum
+
+# Third-party
+from pydantic import BaseModel
 
 class Response(Enum):
     NOT_FOUND = "Resource not found"
@@ -8,3 +12,8 @@ class Response(Enum):
     SERVER_ERROR = "Internal server error"
     FORBIDDEN = "Forbidden"
     SUCCESS = "Operation completed successfully"
+
+
+class ApiResponse(BaseModel):
+    status: str
+    message: str

@@ -7,6 +7,9 @@ from pydantic import BaseModel
 # Local imports
 
 
+class MysqlCardCheck(BaseModel):
+    card_number: str
+
 class MysqlRegisterUser(BaseModel):
     id: int
     uid: str
@@ -15,6 +18,3 @@ class MysqlRegisterUser(BaseModel):
     email: str
     whatsapp: int
     membership_type: str
-
-
-
